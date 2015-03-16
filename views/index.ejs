@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="stylesheets/style.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+
+  <script src="/javascripts/angularApp.js"></script>
+
+
+
+</head>
+<body ng-app="flapperNews">
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Code Candy</a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">+ NEW BLOG</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <ui-view></ui-view>
+    
+    <script type="text/ng-template" id="/home.html">
+
+        <header class="intro-header" style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('http://wallpapers111.com/wp-content/uploads/2015/01/beautiful-mountain-view.jpg')">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="site-heading">
+                            <h1>My First MEAN Stack Blog</h1>
+                            <hr class="small">
+                            <span class="subheading">A sexy looking blog built with Angular, Node, MongoDB and Express</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                    <div ng-repeat="post in posts | orderBy: '-upvotes'">
+
+                        <div class="blog-preview">
+
+                            <div>
+                                <img class="preview-image" ng-src="{{ post.imageurl }}" alt="">
+                            </div>
+
+                            <a href="#/posts/{{post._id}}">
+                                <h2 class="blog-title">
+                                {{ post.title | capitalize }}
+                                </h2>
+                                <h3 class="blog-subtitle">
+                                    {{ post.subtitle | capitalize }}
+                                </h3>
+                            </a>
+                            <p class="blog-meta">{{ post.readtime }} min read  |  <span class="glyphicon glyphicon-heart readers" aria-hidden="true"></span> by {{ post.upvotes }} readers  |  Recommend this article: <span ng-click="incrementUpvotes(post)" class="glyphicon glyphicon-heart" aria-hidden="true"></span> </p>
+                        </div>
+                        <hr>
+
+                    </div>
+
+                    <div class="blog-preview">
+
+                        <form ng-submit="addPost()">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Title</label>
+                            <input type="text" ng-model="title" class="form-control" id="exampleInputEmail1" placeholder="Enter blog title">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Subtitle</label>
+                            <input type="text" ng-model="subtitle" class="form-control" id="exampleInputPassword1" placeholder="Enter blog subtitle">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Blog Image URL</label>
+                            <input type="text" ng-model="imageurl" class="form-control" id="exampleInputPassword1" placeholder="Enter an image URL">             
+                            <p>Dummy URL: https://farm4.staticflickr.com/3926/14507026955_b140f22369_s.jpg</p> 
+                          </div>                         
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Estimate Reading Time</label>
+                            <input type="number" ng-model="readtime" class="form-control" id="exampleInputPassword1" placeholder="How long to read this blog?"> 
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Content</label>
+                            <textarea class="form-control" ng-model="content" rows="6" id="exampleInputPassword1" placeholder="Enter your blog content"></textarea>
+                          </div>
+
+                          <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </script>
+
+    
+
+
+    <script type="text/ng-template" id="/posts.html">
+
+        <header class="intro-header" style="background: url({{post.imageurl}}), linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), no-repeat center center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="site-heading">
+                            <h1>{{post.title | capitalize }}</h1>
+                            <hr class="small">
+                            <span class="subheading">{{post.subtitle | capitalize }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+
+                    <div class="blog-preview">
+
+                        <p>{{post.content}}</p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
